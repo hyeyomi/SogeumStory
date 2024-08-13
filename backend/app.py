@@ -5,7 +5,8 @@ import base64
 import io
 from PIL import Image
 
-app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__, static_folder='static', static_url_path='/static')
+
 CORS(app)
 
 # GeminAI 설정
