@@ -1,16 +1,20 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import google.generativeai as genai
 from flask_cors import CORS
 import base64
 import io
 from PIL import Image
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
 # GeminAI 설정
 API_KEY = 'AIzaSyA0iOqll1uHZLLctgYyRDT10v8lbRS-DRY'
 genai.configure(api_key=API_KEY)
+
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/generate-text', methods=['POST'])
 def generate_text_story():
@@ -62,7 +66,7 @@ def generate_image_story():
     genre = data.get('genre', '')
 
     model = genai.GenerativeModel("gemini-1.5-flash")
-    prompt = f" 제목을 '**제목:**'으로 시작하고, 이야기 본문은 '**이야기:**'로 시작하는 형식으로 {genre} 장르의 사진과 관련된 이야기를 작성해 주세요. 주인공은 {mainCharacter}입니다. "
+    prompt = f"제목을 '**제목:**'으로 시작하고, 이야기 본문은 '**이야기:**'로 시작하는 형식으로 {genre} 장르의 사진과 관련된 이야기를 작성해 주세요. 주인공은 {mainCharacter}입니다."
     response = model.generate_content([prompt, image])
 
     story = response.text if response else "No story generated."
