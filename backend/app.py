@@ -5,7 +5,7 @@ import base64
 import io
 from PIL import Image
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
 # GeminAI 설정
@@ -14,7 +14,7 @@ genai.configure(api_key=API_KEY)
 
 @app.route('/')
 def serve():
-    return send_from_directory(app.static_folder, 'index.html')
+    return app.send_static_file('index.html')
 
 @app.route('/generate-text', methods=['POST'])
 def generate_text_story():
