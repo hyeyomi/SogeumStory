@@ -17,6 +17,10 @@ genai.configure(api_key=API_KEY)
 def serve():
     return app.send_static_file('index.html')
 
+@app.route('/<path:path>')
+def catch_all(path):
+    return app.send_static_file('index.html')
+
 @app.route('/generate-text', methods=['POST'])
 def generate_text_story():
     data = request.json
