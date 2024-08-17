@@ -68,7 +68,7 @@ def update_story():
                 print(f"Extracted keyword part: {keyword_part}")  # 디버그 출력
 
                 # 쉼표를 기준으로 키워드 분리
-                all_keywords = [k.strip() for k in keyword_part.split(',') if k.strip()]
+                all_keywords = [k.strip() for k in keyword_part.split('#') if k.strip()]
                 print(f"All keywords: {all_keywords}")  # 디버그 출력
 
                 # 랜덤으로 3개의 키워드를 선택
