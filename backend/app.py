@@ -54,7 +54,7 @@ def update_story():
     new_idea = data.get('newIdea','')
 
     model = genai.GenerativeModel("gemini-pro")
-    prompt = f"{original_story} 이후의 내용에 {new_idea}가 포함된 새로운 이야기를 보내줘. 이야기 본문은 '**이야기:**'로 시작하는 형식 해주세요. 그리고 마지막에 추가된 소설의 키워드 몇가지를 보내주세요. '키워드 : #키워드, #키워드' 형식으로 보내주세요."
+    prompt = f"{original_story} 이후의 내용에 {new_idea}가 포함된 새로운 이야기를 보내줘. 이야기 본문은 '**이야기:**'로 시작하는 형식 해주세요. 그리고 마지막에 추가된 소설의 키워드 몇가지를 보내주세요. '키워드 : #키워드 , #키워드' 형식으로 보내주세요."
     response = model.generate_content([prompt])
 
     if response:
@@ -67,7 +67,7 @@ def update_story():
                 updated_story = updated_story.strip()
                 print(f"Extracted keyword part: {keyword_part}")  # 디버그 출력
 
-                # 쉼표를 기준으로 키워드 분리
+                # 키워드 분리
                 all_keywords = [k.strip() for k in keyword_part.split('#') if k.strip()]
                 print(f"All keywords: {all_keywords}")  # 디버그 출력
 
